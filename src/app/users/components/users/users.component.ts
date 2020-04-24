@@ -19,7 +19,9 @@ export class UsersComponent implements OnInit {
     private userService: UserService,
     private customFacadeService: CustomFacadeService
   ) {
-    // this.users$ = userService.filteredEntities$;
+    // to make filtering work uncomment this line and comment the next
+    // since custom selector for some reason doesn't with filtering
+    //this.users$ = userService.filteredEntities$;
     this.users$ = customFacadeService.users$;
     this.loading$ = userService.loading$;
   }

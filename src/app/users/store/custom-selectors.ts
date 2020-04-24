@@ -22,11 +22,12 @@ export const selectSortBy = createSelector(
 );
 
 export const selectUsersWithSorting = createSelector(
-  selectUserState.selectEntities,
+  selectUserState.selectFilteredEntities,
   selectSortDirection,
   selectSortBy,
   (users: User[], direction: string, property: string) => {
     if (!direction || !property) {
+      console.log(users);
       return users;
     }
     return users.sort((a, b) => {
