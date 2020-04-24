@@ -1,0 +1,53 @@
+<div class="user-list">
+  <mat-card *ngIf="loading$ | async; else userList" class="loading">
+    <mat-spinner></mat-spinner>
+  </mat-card>
+</div>
+
+<ng-template #userList>
+  <mat-card>
+    <mat-form-field>
+      <mat-label>Filter by Name</mat-label>
+      <input matInput [(ngModel)]="filterName" placeholder="Name" />
+    </mat-form-field>
+    <button mat-button (click)="applyFilter(filterName)" color="primary">
+      Filter!
+    </button>
+  </mat-card>
+  <mat-card>
+    <button mat-button (click)="sortUsers('id', 'ASC')" color="warn">
+      Sort By Id Asc
+    </button>
+    <button mat-button (click)="sortUsers('id', 'DESC')" color="warn">
+      Sort By Id Desc
+    </button>
+    <button mat-button (click)="sortUsers('name', 'ASC')" color="warn">
+      Sort By Name Asc
+    </button>
+    <button mat-button (click)="sortUsers('name', 'DESC')" color="warn">
+      Sort By Name Desc
+    </button>
+  </mat-card>
+  <mat-card>
+    <mat-list role="list" class="records">
+      <mat-list-item role="listitem" class="record">
+        <div class="record__item">ID</div>
+        <div class="record__item">Name</div>
+
+        <mat-divider></mat-divider>
+      </mat-list-item>
+      <mat-list-item
+        *ngFor="let user of users$ | async"
+        role="listitem"
+        class="record"
+      >
+        <div class="record__item">{{ user.id }}</div>
+        <div class="record__item">{{ user.name }}</div>
+        <button mat-button (click)="removeFromCache(user.id)" color="primary">
+          Remove
+        </button>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+    </mat-list>
+  </mat-card>
+</ng-template>
